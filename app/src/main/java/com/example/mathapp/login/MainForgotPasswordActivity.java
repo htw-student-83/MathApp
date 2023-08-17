@@ -32,7 +32,7 @@ public class MainForgotPasswordActivity extends AppCompatActivity {
      */
     private void checkInputNumberFromUser() {
         if (phonenumber.getText().toString().isEmpty()) {
-            Toast.makeText(this,"Please input your phone number!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Which moible number?", Toast.LENGTH_SHORT).show();
         }else{
             String knownMobilenumber = phonenumber.getText().toString();
             if(!TextUtils.isDigitsOnly(knownMobilenumber)){
@@ -51,10 +51,10 @@ public class MainForgotPasswordActivity extends AppCompatActivity {
      */
     private void sendPinAgain(String inputNumber){
         MainRegistrationActivity pinsender = new MainRegistrationActivity();
-        // - The PIN will read from the database
-        //  - Error -> the email wouldn't send, why?
+        //Database db = new Database();
         //TODO den richtigen PIN aus der DB auslesen!
-        //pinsender.sendPINCode(inputNumber, pinCodeFromDB);
+        //int knownNumber = db.getPersonData(inputNumber);
+        //pinsender.sendPINCode(inputNumber, knownNumber);
     }
 
     private void goBackToLogin() throws InterruptedException {

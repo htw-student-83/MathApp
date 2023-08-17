@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,6 +33,10 @@ public class MainRegistrationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Check the user input
+     * @throws InterruptedException
+     */
     private void checkData() throws InterruptedException {
         String fName = firstname.getText().toString();
         String lName = lastname.getText().toString();
@@ -46,18 +49,28 @@ public class MainRegistrationActivity extends AppCompatActivity {
             }else if(phoneNumber.length() < 11){
                 Toast.makeText(this, "Your number is too shurt.", Toast.LENGTH_LONG).show();
             }else{
-                int pin = createNewPIN();
-                // - the datas will write into the database
-                Database db = new Database(MainRegistrationActivity.this);
-                //db.addNewPerson(fName, lName, mail, pin);
-                // - the PIN will send to the known mobil number
-                //sendMail(mail, pin);
-                sendPINCode(phoneNumber, pin);
-                Thread.sleep(2000);
-                Intent newActivity = new Intent(MainRegistrationActivity.this, MainLoginActivity.class);
-                startActivity(newActivity);
+              sendToDB(fName, lName, phoneNumber);
             }
         }
+    }
+
+    /**
+     * send the valid data from an user to the db
+     * @param firstname firstname
+     * @param lastname lastname
+     * @param phoneNumber, mobile number to get the personally pin
+     * @throws InterruptedException ...
+     */
+    private void sendToDB(String firstname, String  lastname, String phoneNumber) throws InterruptedException {
+        int pin = createNewPIN();
+        // - the datas will write into the database
+        Database db = new Database(MainRegistrationActivity.this);
+        db.addNewPerson(pin, firstname, lastname, phoneNumber);
+        // - the PIN will send to the known mobil number
+        sendPINCode(phoneNumber, pin);
+        Thread.sleep(2000);
+        Intent newActivity = new Intent(MainRegistrationActivity.this, MainLoginActivity.class);
+        startActivity(newActivity);
     }
 
     private int createNewPIN() {

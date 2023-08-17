@@ -13,9 +13,7 @@ import com.example.mathapp.R;
 import java.util.Random;
 
 public class MainPage extends AppCompatActivity {
-
-    private int firstMultiplikator;
-    private int secondMultiplikator;
+    private int product;
     private EditText editInputResult;
     private TextView current_exercise;
 
@@ -40,6 +38,11 @@ public class MainPage extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         });
+
+        Button finish = findViewById(R.id.cancle);
+        finish.setOnClickListener(view -> {
+            //TODO Die App soll beendet werden...
+        });
     }
 
     /**
@@ -48,8 +51,9 @@ public class MainPage extends AppCompatActivity {
     private void getNewExercise(){
         Random ersteZahl = new Random();
         Random zweiteZahl = new Random();
-        this.firstMultiplikator = ersteZahl.nextInt(10);
-        this.secondMultiplikator = zweiteZahl.nextInt(10);
+        int firstMultiplikator = ersteZahl.nextInt(10);
+        int secondMultiplikator = zweiteZahl.nextInt(10);
+        this.product = firstMultiplikator * secondMultiplikator;
         String operator = "x";
         setExercise(firstMultiplikator, operator, secondMultiplikator);
     }
@@ -79,15 +83,14 @@ public class MainPage extends AppCompatActivity {
      * evaluate the result of the user
      */
     private void evaluation() throws InterruptedException {
-        int product = this.firstMultiplikator * this.secondMultiplikator;
-        if(product != Integer.parseInt(editInputResult.getText().toString())){
+        if(this.product != Integer.parseInt(editInputResult.getText().toString())){
             Toast.makeText(this, "Versuch es nochmal!", Toast.LENGTH_SHORT).show();
             editInputResult.setText("");
         }else{
             Toast.makeText(this, "gut gemacht-)", Toast.LENGTH_SHORT).show();
             Thread.sleep(2000);
-            getNewExercise();
             editInputResult.setText("");
+            getNewExercise();
         }
     }
 

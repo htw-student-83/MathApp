@@ -11,6 +11,7 @@
         android:id="@+id/newExercise"
         android:layout_width="1200px"
         android:layout_height="140px"
+        android:backgroundTint="#73EDCF"
         android:text="neue Aufgabe"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,10 +22,11 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/cancle"
         android:layout_width="1100px"
         android:layout_height="wrap_content"
         android:layout_marginBottom="188dp"
+        android:backgroundTint="#928C8C8C"
         android:text="Beenden"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +35,7 @@
 
     <EditText
         android:id="@+id/inputResult"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
@@ -41,7 +43,7 @@
         android:textColor="#0C0C0C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintHorizontal_bias="0.706"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,25 +94,26 @@
 
     <TextView
         android:id="@+id/currentExercise"
-        android:layout_width="300px"
-        android:layout_height="70px"
-        android:background="#BEDDDBDB"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:background="#BEF3EFEF"
         android:textAlignment="center"
         android:textColor="#191717"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintHorizontal_bias="0.706"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382"
+        app:layout_constraintVertical_bias="0.379"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/checkInput"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="#67B4BF"
         android:text="Prüfen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

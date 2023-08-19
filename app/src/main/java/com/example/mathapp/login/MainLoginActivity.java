@@ -6,9 +6,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.mathapp.R;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainLoginActivity extends AppCompatActivity {
@@ -19,7 +17,6 @@ public class MainLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_login);
-
         editPassword = findViewById(R.id.editTextNumberPassword2);
 
         Button registration = findViewById(R.id.button16);
@@ -51,13 +48,13 @@ public class MainLoginActivity extends AppCompatActivity {
     private void ckeckUserInput(){
         int maxuserinput = 4;
         if(editPassword.getText().toString().isEmpty()){
-            Toast.makeText(this, "Welche Nummer?", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please input your PIN!", Toast.LENGTH_SHORT).show();
         }else{
-            if(!TextUtils.isDigitsOnly(editPassword.getText())){
-                Toast.makeText(this, "Ungültige Eingabe!", Toast.LENGTH_SHORT).show();
-            }else if(editPassword.getText().toString().length() < maxuserinput){
-                Toast.makeText(this, "Der PIN ist zu kurz", Toast.LENGTH_SHORT).show();
-            }else {
+          if(editPassword.getText().toString().length() < maxuserinput){
+                Toast.makeText(this, "Your PIN is too shurt", Toast.LENGTH_SHORT).show();
+            }else if(editPassword.getText().toString().length() > 4) {
+              Toast.makeText(this, "Your PIN is too long", Toast.LENGTH_SHORT).show();
+            }else{
                 String inputNumber = editPassword.getText().toString().trim();
                 //TODO Abgleich mit einem DB-Eintrag
                 //sendPINCode(inputNumber);

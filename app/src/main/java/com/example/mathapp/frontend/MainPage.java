@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mathapp.R;
+import com.example.mathapp.backend.Businesslogic;
 
 import java.util.Random;
 
@@ -16,18 +17,23 @@ public class MainPage extends AppCompatActivity {
     private int product;
     private EditText editInputResult;
     private TextView current_exercise;
+    private boolean isClicked = false;
+    //private Businesslogic model = new Businesslogic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-
         current_exercise = findViewById(R.id.currentExercise);
         editInputResult = findViewById(R.id.inputResult);
 
         Button createExercise = findViewById(R.id.newExercise);
         createExercise.setOnClickListener(view ->{
-            getNewExercise();
+            if(!isClicked){
+                getNewExercise();
+                isClicked = true;
+                createExercise.setEnabled(false);
+            }
         });
 
         Button checkInput = findViewById(R.id.checkInput);
@@ -41,21 +47,8 @@ public class MainPage extends AppCompatActivity {
 
         Button finish = findViewById(R.id.cancle);
         finish.setOnClickListener(view -> {
-            //TODO Die App soll beendet werden...
+            finish();
         });
-    }
-
-    /**
-     * create a new exercise
-     */
-    private void getNewExercise(){
-        Random ersteZahl = new Random();
-        Random zweiteZahl = new Random();
-        int firstMultiplikator = ersteZahl.nextInt(10);
-        int secondMultiplikator = zweiteZahl.nextInt(10);
-        this.product = firstMultiplikator * secondMultiplikator;
-        String operator = "x";
-        setExercise(firstMultiplikator, operator, secondMultiplikator);
     }
 
     /**
@@ -64,7 +57,7 @@ public class MainPage extends AppCompatActivity {
      * @param operator multiplikator
      * @param secondNumber second operator
      */
-    private void setExercise(int firstNumber, String operator, int secondNumber){
+    public void setExercise(int firstNumber, String operator, int secondNumber){
         current_exercise.setText(firstNumber + " " + operator + " " + secondNumber);
     }
 
@@ -95,4 +88,16 @@ public class MainPage extends AppCompatActivity {
     }
 
 
+    /**
+     * create a new exercise
+     */
+    public void getNewExercise(){
+        Random ersteZahl = new Random();
+        Random zweiteZahl = new Random();
+        int firstMultiplikator = ersteZahl.nextInt(10);
+        int secondMultiplikator = zweiteZahl.nextInt(10);
+        this.product = firstMultiplikator * secondMultiplikator;
+        String operator = "x";
+        setExercise(firstMultiplikator, operator, secondMultiplikator);
+    }
 }

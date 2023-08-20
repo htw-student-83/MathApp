@@ -14,7 +14,7 @@
         android:layout_marginTop="244dp"
         android:text="Firstname: *"
         android:textAllCaps="true"
-        android:textColor="#151414"
+        android:textColor="#121111"
         android:textSize="16sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,17 +75,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView47"
-        android:layout_width="440dp"
-        android:layout_height="450dp"
-        android:layout_marginTop="192dp"
-        android:background="#45CCF4EF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView46"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,8 +82,8 @@
         android:text="Registration"
         android:textAlignment="center"
         android:textColor="#121010"
-        android:textSize="24sp"
-        android:textStyle="italic"
+        android:textSize="34sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -106,7 +95,7 @@
         android:layout_marginTop="460dp"
         android:text="mobile number: *"
         android:textAllCaps="true"
-        android:textColor="#151414"
+        android:textColor="#131313"
         android:textSize="16sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +111,7 @@
         android:layout_marginTop="352dp"
         android:text="Lastname: *"
         android:textAllCaps="true"
-        android:textColor="#151414"
+        android:textColor="#171717"
         android:textSize="16sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,23 +1,31 @@
 package com.example.mathapp.login;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.Toast;
 import com.example.mathapp.R;
+import com.example.mathapp.frontend.MainPage;
+
+import java.time.chrono.ThaiBuddhistChronology;
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainLoginActivity extends AppCompatActivity {
 
-    private EditText editPassword;
+    private EditText editPIN;
+    private DB_Helper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_login);
-        editPassword = findViewById(R.id.editTextNumberPassword2);
+        editPIN = findViewById(R.id.editTextNumberPassword2);
 
         Button registration = findViewById(R.id.button16);
         Button forgotPassword = findViewById(R.id.button18);
@@ -28,36 +36,24 @@ public class MainLoginActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(view -> getPassword());
     }
 
-    /*
-    private void ckeckUserInputt() {
-        String code = editPassword.getText().toString();
-        String[] codeArray = code.split("");
-        if(code.isEmpty()){
-            Toast.makeText(this,"Input your PIN!", Toast.LENGTH_SHORT).show();
-        }else if(codeArray.length!=6){
-            Toast.makeText(this,"PIN is invalid", Toast.LENGTH_SHORT).show();
-        }else{
-            // - compare the inputPIN with all PINS in the dabase
-            // - if the code is already in the db, than forward to the next page, otherwise Toast...
-            Intent newActivity = new Intent(MainLoginActivity.this, MainPage.class);
-            startActivity(newActivity);
-        }
-    }
-     */
-
     private void ckeckUserInput(){
         int maxuserinput = 4;
-        if(editPassword.getText().toString().isEmpty()){
+        if(editPIN.getText().toString().isEmpty()){
             Toast.makeText(this, "Please input your PIN!", Toast.LENGTH_SHORT).show();
         }else{
-          if(editPassword.getText().toString().length() < maxuserinput){
+          if(editPIN.getText().toString().length() < maxuserinput){
                 Toast.makeText(this, "Your PIN is too shurt", Toast.LENGTH_SHORT).show();
-            }else if(editPassword.getText().toString().length() > 4) {
+            }else if(editPIN.getText().toString().length() > maxuserinput) {
               Toast.makeText(this, "Your PIN is too long", Toast.LENGTH_SHORT).show();
             }else{
-                String inputNumber = editPassword.getText().toString().trim();
-                //TODO Abgleich mit einem DB-Eintrag
-                //sendPINCode(inputNumber);
+                int inputPIN = Integer.parseInt(editPIN.getText().toString());
+                helper = new DB_Helper(this);
+                boolean pinIsKnown =  this.helper.login(String.valueOf(inputPIN));
+                if(pinIsKnown){
+                    goToMainPage();
+                }else{
+                    Toast.makeText(this, "Your PIN is unknown", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -72,4 +68,10 @@ public class MainLoginActivity extends AppCompatActivity {
         Intent newActivity = new Intent(MainLoginActivity.this, MainRegistrationActivity.class);
         startActivity(newActivity);
     }
+
+    private void goToMainPage() {
+        Intent newActivity = new Intent(MainLoginActivity.this, MainPage.class);
+        startActivity(newActivity);
+    }
+
 }

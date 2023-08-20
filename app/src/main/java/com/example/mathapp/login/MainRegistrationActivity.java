@@ -1,10 +1,8 @@
 package com.example.mathapp.login;
 
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
@@ -15,8 +13,6 @@ import android.widget.Toast;
 
 import com.example.mathapp.R;
 
-import java.util.Random;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,15 +21,12 @@ public class MainRegistrationActivity extends AppCompatActivity {
     private static final int SMS_PERMISSION_REQUEST_CODE = 1;
     private EditText firstname, lastname, mobilephone;
     private int initialPINCode = 1000;
-    private DB_Helper helper;
     private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_registration);
-        helper = new DB_Helper(this);
-        helper.openDB();
         firstname = findViewById(R.id.editTextTextPersonName3);
         lastname = findViewById(R.id.editTextTextPersonName4);
         mobilephone = findViewById(R.id.editmoibilenumber);
@@ -88,28 +81,13 @@ public class MainRegistrationActivity extends AppCompatActivity {
      */
     private void sendToDB(String firstname, String  lastname, String phoneNumber) throws InterruptedException {
         int pin = createNewPIN();
-        //Der Toast kann nur Strings ausgeben!!!
-        //Toast.makeText(this, String.valueOf(pin), Toast.LENGTH_LONG).show();
-        //TODO prüfen, ob es diesen PIN in der DB bereits gibt
-       /* while (pin == getPersonData()){
-            pin = createNewPIN();
-        }
-
-        */
-        // - the datas will write into the database
-        //Database db = new Database(MainRegistrationActivity.this);
-        DB_Daten db = new DB_Daten(pin, firstname, lastname, phoneNumber);
-        if(this.helper.registerDaten(db)){
-            sendPINCode(phoneNumber, pin);
-            Intent nextPage = new Intent(MainRegistrationActivity.this, MainLoginActivity.class);
-            startActivity(nextPage);
-        }else{
-            Toast.makeText(this, "Registration was failed.", Toast.LENGTH_LONG).show();
-        }
-        //boolean result = db.addNewPerson(pin, firstname, lastname, phoneNumber);
-        // - the PIN will send to the known mobil number
+        DB_Helper helper = new DB_Helper(MainRegistrationActivity.this);
+        helper.registerMembern(String.valueOf(pin), firstname, lastname, phoneNumber);
+        sendPINCode(phoneNumber, pin);
+        Intent newActivity = new Intent(MainRegistrationActivity.this, MainLoginActivity.class);
+        Thread.sleep(2000);
+        startActivity(newActivity);
     }
-
 
 
     private int createNewPIN() {
@@ -117,19 +95,6 @@ public class MainRegistrationActivity extends AppCompatActivity {
         return ++this.initialPINCode;
     }
 
-
-/*
-    private void sendMail(String mail, int pin){
-        String accessCode = String.valueOf(pin);
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"+mail));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Your PIN");
-        intent.putExtra(Intent.EXTRA_TEXT, accessCode);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
- */
 
     /**
      *

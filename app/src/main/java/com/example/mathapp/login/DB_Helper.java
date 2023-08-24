@@ -1,5 +1,6 @@
 package com.example.mathapp.login;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +27,7 @@ public class DB_Helper extends SQLiteOpenHelper {
     private static final String COLUMN_MOBILENUMBER = "mn";
 
     /**
-     *
+     * A new instance of the db
      * @param context
      */
     public DB_Helper(@Nullable Context context) {
@@ -35,7 +36,7 @@ public class DB_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * create a new table of the db
      * @param db The database.
      */
     @Override
@@ -50,7 +51,7 @@ public class DB_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * change the DB
      * @param db The database.
      * @param oldVersion The old database version.
      * @param newVersion The new database version.
@@ -62,12 +63,12 @@ public class DB_Helper extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @param pin
-     * @param firstname
-     * @param lastname
-     * @param mobilenumber
-     * @return
+     * register a new member
+     * @param pin the key to use the app
+     * @param firstname Firstname
+     * @param lastname Lastname
+     * @param mobilenumber Mobile number
+     * @return true, if the registration was sucessfully otherwise false
      */
     public boolean registerMembern(String pin, String firstname, String lastname, String mobilenumber){
         //Ermöglicht Daten in die DB zu schreiben
@@ -87,18 +88,52 @@ public class DB_Helper extends SQLiteOpenHelper {
     }
 
 
-        /**
-         *
-         * @param inputPin
-         * @return
-         */
-        public boolean login(String inputPin){
-            SQLiteDatabase db = this.getReadableDatabase();
-            String sql = " SELECT * FROM " + TABLENAME + " where " + COLUMN_PIN + "=?";
-            Cursor cursor =  db.rawQuery(sql, new String[]{inputPin});
-            boolean result = cursor.getCount() > 0;
-            cursor.close();
-            return result;
+    /**
+     * check the input pin in the DB
+     * @param inputPin user input
+     * @return true, if the pin is saved otherwise false
+     */
+    public boolean login(String inputPin){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = " SELECT * FROM " + TABLENAME + " where " + COLUMN_PIN + "=?";
+        Cursor cursor =  db.rawQuery(sql, new String[]{inputPin});
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        return result;
+    }
+
+    /**
+     * read the saved pin from the db
+     * @param inputNumber user input number
+     * @return true, if the pin is saved is ready for the transport otherwise false
+     */
+    public String sendKnownPin(String inputNumber){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = " SELECT " + COLUMN_PIN + " FROM " + TABLENAME + " where " + COLUMN_MOBILENUMBER + "=?";
+        Cursor cursor =  db.rawQuery(sql, new String[]{inputNumber});
+        String savedPIN = null;
+        if(cursor.moveToFirst()){
+            savedPIN = cursor.getString(0);
         }
+        cursor.close();
+        return savedPIN;
+    }
+
+
+    /**
+     * check the input number in the databse
+     * @param inputNumber user input number
+     * @return true, if the pin is saved is ready for the transport otherwise false
+     */
+    public boolean checkMobileNumber(String inputNumber){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = " SELECT " + COLUMN_MOBILENUMBER + " FROM " + TABLENAME + " where " + COLUMN_MOBILENUMBER + "=?";
+        Cursor cursor =  db.rawQuery(sql, new String[]{inputNumber});
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        cursor.close();
+        return false;
+    }
 
 }

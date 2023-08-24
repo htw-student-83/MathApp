@@ -36,7 +36,7 @@ public class MainLoginActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(view -> getPassword());
     }
 
-    private void ckeckUserInput(){
+    public void ckeckUserInput(){
         int maxuserinput = 4;
         if(editPIN.getText().toString().isEmpty()){
             Toast.makeText(this, "Please input your PIN!", Toast.LENGTH_SHORT).show();
@@ -51,6 +51,7 @@ public class MainLoginActivity extends AppCompatActivity {
                 boolean pinIsKnown =  this.helper.login(String.valueOf(inputPIN));
                 if(pinIsKnown){
                     goToMainPage();
+                    editPIN.setText("");
                 }else{
                     Toast.makeText(this, "Your PIN is unknown", Toast.LENGTH_SHORT).show();
                 }

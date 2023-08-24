@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+/**
+ * This class represent the Register page to register a new member
+ */
 public class MainRegistrationActivity extends AppCompatActivity {
     private static final int SMS_PERMISSION_REQUEST_CODE = 1;
     private EditText firstname, lastname, mobilephone;
@@ -33,14 +36,14 @@ public class MainRegistrationActivity extends AppCompatActivity {
         Button conformRegistration = findViewById(R.id.register);
         conformRegistration.setOnClickListener(view -> {
             try {
-                onClick(view);
+                onClick();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    public void onClick(View v) throws InterruptedException {
+    public void onClick() throws InterruptedException {
         // Prüfe die SMS-Berechtigung
         if (ContextCompat.checkSelfPermission(MainRegistrationActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             // Wenn keine Berechtigung vorhanden ist, fordere sie an
@@ -55,7 +58,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
      * Check the user input
      * @throws InterruptedException
      */
-    private void checkData() throws InterruptedException {
+    public void checkData() throws InterruptedException {
         String fName = firstname.getText().toString();
         String lName = lastname.getText().toString();
         phoneNumber = mobilephone.getText().toString();
@@ -77,11 +80,15 @@ public class MainRegistrationActivity extends AppCompatActivity {
      * @param firstname firstname
      * @param lastname lastname
      * @param phoneNumber, mobile number to get the personally pin
-     * @throws InterruptedException ...
+     * @throws InterruptedException if something going wrong by switched from one side to an other side
      */
     private void sendToDB(String firstname, String  lastname, String phoneNumber) throws InterruptedException {
         int pin = createNewPIN();
         DB_Helper helper = new DB_Helper(MainRegistrationActivity.this);
+        //Solange in der Schleife verweilen, bis ein neuer PIN erstellt wurde
+        while (helper.login(String.valueOf(pin))){
+            pin = createNewPIN();
+        };
         helper.registerMembern(String.valueOf(pin), firstname, lastname, phoneNumber);
         sendPINCode(phoneNumber, pin);
         Intent newActivity = new Intent(MainRegistrationActivity.this, MainLoginActivity.class);
@@ -97,12 +104,23 @@ public class MainRegistrationActivity extends AppCompatActivity {
 
 
     /**
-     *
-     * @param phonenumber
-     * @param pin
+     * send a new pin to a mobile number
+     * @param phonenumber mobile number
+     * @param pin Login-Pin
      */
     public void sendPINCode(String phonenumber, int pin) {
         String message = "Dein PIN lautet: " + pin;
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phonenumber, null, message, null, null);
+    }
+
+    /**
+     * send the known pin-code from the db
+     * @param phonenumber mobile number
+     * @param pin Login-Pin
+     */
+    public void sendSavedPINCode(String phonenumber, int pin) {
+        String message = "Dein gespeicherter PIN lautet: " + pin;
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phonenumber, null, message, null, null);
     }

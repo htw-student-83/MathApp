@@ -1,15 +1,11 @@
 package com.example.mathapp.login;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
-import java.util.HashMap;
-import java.util.Map;
 
 import androidx.annotation.Nullable;
 

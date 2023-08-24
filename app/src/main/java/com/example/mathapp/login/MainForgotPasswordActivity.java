@@ -26,7 +26,7 @@ public class MainForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_forgot_password);
-        phonenumber = findViewById(R.id.editNumberForgotPIN);
+        phonenumber = findViewById(R.id.editNumber);
         Button sendButton = findViewById(R.id.button19);
         sendButton.setOnClickListener(view -> {
             try {

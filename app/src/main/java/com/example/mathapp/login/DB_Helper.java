@@ -91,7 +91,7 @@ public class DB_Helper extends SQLiteOpenHelper {
      */
     public boolean login(String inputPin){
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = " SELECT * FROM " + TABLENAME + " where " + COLUMN_PIN + "=?";
+        String sql = " SELECT " + COLUMN_PIN + " FROM " + TABLENAME + " where " + COLUMN_PIN + "=?";
         Cursor cursor =  db.rawQuery(sql, new String[]{inputPin});
         boolean result = cursor.getCount() > 0;
         cursor.close();

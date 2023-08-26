@@ -21,6 +21,8 @@ import androidx.core.content.ContextCompat;
  * This class represent the Register page to register a new member
  */
 public class MainRegistrationActivity extends AppCompatActivity {
+
+    DB_Helper helper = new DB_Helper(MainRegistrationActivity.this);
     private static final int SMS_PERMISSION_REQUEST_CODE = 1;
     private EditText firstname, lastname, mobilephone;
     private int initialPINCode = 1000;
@@ -32,7 +34,7 @@ public class MainRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_registration);
         firstname = findViewById(R.id.editTextTextPersonName3);
         lastname = findViewById(R.id.editTextTextPersonName4);
-        mobilephone = findViewById(R.id.editmoibilenumber);
+        mobilephone = findViewById(R.id.editNumberRegistration);
         Button conformRegistration = findViewById(R.id.register);
         conformRegistration.setOnClickListener(view -> {
             try {
@@ -69,6 +71,9 @@ public class MainRegistrationActivity extends AppCompatActivity {
                 Toast.makeText(this, "Your number is invalid.", Toast.LENGTH_LONG).show();
             }else if(phoneNumber.length() < 11){
                 Toast.makeText(this, "Your number is too shurt.", Toast.LENGTH_LONG).show();
+            }else if(helper.checkMobileNumber(phoneNumber)){
+                Toast.makeText(this, "Your number is already known.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Please input an other number.", Toast.LENGTH_LONG).show();
             }else{
                 sendToDB(fName, lName, phoneNumber);
             }
@@ -84,10 +89,12 @@ public class MainRegistrationActivity extends AppCompatActivity {
      */
     private void sendToDB(String firstname, String  lastname, String phoneNumber) throws InterruptedException {
         int pin = createNewPIN();
-        DB_Helper helper = new DB_Helper(MainRegistrationActivity.this);
+
         //Solange in der Schleife verweilen, bis ein neuer PIN erstellt wurde
-        while (helper.login(String.valueOf(pin))){
+        boolean pinIsKnown = helper.login(String.valueOf(pin));
+        while (pinIsKnown){
             pin = createNewPIN();
+            pinIsKnown = helper.login(String.valueOf(pin));
         };
         helper.registerMembern(String.valueOf(pin), firstname, lastname, phoneNumber);
         sendPINCode(phoneNumber, pin);

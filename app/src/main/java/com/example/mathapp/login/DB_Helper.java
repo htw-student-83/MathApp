@@ -7,9 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import com.example.mathapp.vertrag.DB_Logic;
+
 import androidx.annotation.Nullable;
 
-public class DB_Helper extends SQLiteOpenHelper {
+/**
+ * This class represents the Structur of the databse.
+ */
+public class DB_Helper extends SQLiteOpenHelper implements DB_Logic {
 
     private Context context;
     private static final String DATABASE_NAME = "MemberOfTheMathApp";
@@ -58,14 +63,7 @@ public class DB_Helper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /**
-     * register a new member
-     * @param pin the key to use the app
-     * @param firstname Firstname
-     * @param lastname Lastname
-     * @param mobilenumber Mobile number
-     * @return true, if the registration was sucessfully otherwise false
-     */
+    @Override
     public boolean registerMembern(String pin, String firstname, String lastname, String mobilenumber){
         //Ermöglicht Daten in die DB zu schreiben
         SQLiteDatabase db = this.getWritableDatabase();
@@ -83,12 +81,7 @@ public class DB_Helper extends SQLiteOpenHelper {
         return true;
     }
 
-
-    /**
-     * check the input pin in the DB
-     * @param inputPin user input
-     * @return true, if the pin is saved otherwise false
-     */
+    @Override
     public boolean login(String inputPin){
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = " SELECT " + COLUMN_PIN + " FROM " + TABLENAME + " where " + COLUMN_PIN + "=?";
@@ -98,11 +91,7 @@ public class DB_Helper extends SQLiteOpenHelper {
         return result;
     }
 
-    /**
-     * read the saved pin from the db
-     * @param inputNumber user input number
-     * @return true, if the pin is saved is ready for the transport otherwise false
-     */
+    @Override
     public String sendKnownPin(String inputNumber){
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = " SELECT " + COLUMN_PIN + " FROM " + TABLENAME + " where " + COLUMN_MOBILENUMBER + "=?";
@@ -115,12 +104,7 @@ public class DB_Helper extends SQLiteOpenHelper {
         return savedPIN;
     }
 
-
-    /**
-     * check the input number in the databse
-     * @param inputNumber user input number
-     * @return true, if the pin is saved is ready for the transport otherwise false
-     */
+    @Override
     public boolean checkMobileNumber(String inputNumber){
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = " SELECT " + COLUMN_MOBILENUMBER + " FROM " + TABLENAME + " where " + COLUMN_MOBILENUMBER + "=?";

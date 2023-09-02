@@ -7,11 +7,9 @@ import com.bumptech.glide.Glide;
 import android.content.Intent;
 import android.os.Handler;
 import android.widget.ImageView;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
 import com.example.mathapp.R;
-import com.example.mathapp.login.MainLoginActivity;
 
 public class Gratulation extends AppCompatActivity {
     private static final int MAX_WAITING_TIME = 5000; // 5 Sekundens
@@ -27,7 +25,7 @@ public class Gratulation extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent loginIntent = new Intent(Gratulation.this, MainPage.class);
+                Intent loginIntent = new Intent(Gratulation.this, ViewPage.class);
                 startActivity(loginIntent);
                 finish(); // Aktuelle Aktivität schließen
             }

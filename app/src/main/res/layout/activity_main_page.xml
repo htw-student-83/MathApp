@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B5F3EB"
-    tools:context=".frontend.MainPage">
+    tools:context=".frontend.ViewPage">
 
     <Button
         android:id="@+id/newExercise"

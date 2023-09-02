@@ -1,13 +1,13 @@
 package com.example.mathapp.frontend;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.mathapp.R;
 import com.example.mathapp.login.MainLoginActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * This class represent a background picture of the App
@@ -19,7 +19,6 @@ public class LoadPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_page);
-
         //The content of this method will be execute, when the time is over
         new Handler().postDelayed(new Runnable() {
             @Override

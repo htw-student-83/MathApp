@@ -1,18 +1,12 @@
 package com.example.mathapp.login;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TableLayout;
 import android.widget.Toast;
 import com.example.mathapp.R;
-import com.example.mathapp.frontend.MainPage;
-
-import java.time.chrono.ThaiBuddhistChronology;
-import java.util.List;
+import com.example.mathapp.frontend.ViewPage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -71,7 +65,7 @@ public class MainLoginActivity extends AppCompatActivity {
     }
 
     private void goToMainPage() {
-        Intent newActivity = new Intent(MainLoginActivity.this, MainPage.class);
+        Intent newActivity = new Intent(MainLoginActivity.this, ViewPage.class);
         startActivity(newActivity);
     }
 

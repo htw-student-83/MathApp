@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat;
  */
 public class ViewPage extends AppCompatActivity {
     private EditText editInputResult;
-    private TextView current_exercise, editPoints;
+    private TextView current_exercise, editPoints, feedback;
     private boolean isClicked = false;
     private ControllPage controller;
 
@@ -30,6 +30,7 @@ public class ViewPage extends AppCompatActivity {
         current_exercise = findViewById(R.id.currentExercise);
         editInputResult = findViewById(R.id.inputResult);
         editPoints = findViewById(R.id.changePoints);
+        feedback = findViewById(R.id.feedbackText);
 
         this.controller = new ControllPage(this);
 
@@ -97,6 +98,14 @@ public class ViewPage extends AppCompatActivity {
      */
     public void setExercise(int firstNumber, String operator, int secondNumber){
         current_exercise.setText(firstNumber + " " + operator + " " + secondNumber);
+    }
+
+    /**
+     * print the text of the evaluation
+     * @param urteil the exactly meaning of stand of points in after a game round
+     */
+    public void setFeedback(String urteil){
+        feedback.setText(urteil);
     }
 
     /**

@@ -11,7 +11,21 @@ public class Businesslogic implements LogicOfTheGame {
 
     private int product  = 0;
     private int cnt = 0;
-    private int MAX_GAME_POINTS = 5;
+    private int MAX_GAME_POINTS = 20;
+    private int MAX_ROUNDS_OF_GAME = 20;
+    private int current_round = 0;
+
+    public int getCurrent_round() {
+        return current_round;
+    }
+
+    public void setCurrent_round() {
+        this.current_round++;
+    }
+
+    public int getMAX_ROUNDS_OF_GAME() {
+        return MAX_ROUNDS_OF_GAME;
+    }
 
 
     //TODO Please change the modificator!

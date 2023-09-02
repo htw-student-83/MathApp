@@ -25,7 +25,7 @@
         android:id="@+id/cancle"
         android:layout_width="1100px"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="188dp"
+        android:layout_marginBottom="140dp"
         android:backgroundTint="#928C8C8C"
         android:text="Beenden"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -119,10 +119,10 @@
         android:text="Prüfen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.631" />
+        app:layout_constraintVertical_bias="0.707" />
 
     <TextView
         android:id="@+id/points"
@@ -141,7 +141,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="/5"
+        android:text="/20"
         android:textColor="#121111"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -160,9 +160,42 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.868"
+        app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042" />
+
+    <TextView
+        android:id="@+id/feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bewertung:"
+        android:textColor="#131313"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.248"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.612" />
+
+    <TextView
+        android:id="@+id/feedbackText"
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:background="#F1EEEE"
+        android:paddingTop="10px"
+        android:paddingBottom="5px"
+        android:textAlignment="center"
+        android:textColor="#050505"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.609" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

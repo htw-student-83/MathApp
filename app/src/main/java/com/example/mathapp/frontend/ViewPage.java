@@ -2,6 +2,7 @@ package com.example.mathapp.frontend;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,7 +21,10 @@ public class ViewPage extends AppCompatActivity {
     private EditText editInputResult;
     private TextView current_exercise, editPoints, feedback;
     private boolean isClicked = false;
+    private Button createExercise;
     private ControllPage controller;
+    private static final int MAX_WAITING_TIME = 5000; // 5 Sekundens
+
 
 
     @Override
@@ -34,14 +38,9 @@ public class ViewPage extends AppCompatActivity {
 
         this.controller = new ControllPage(this);
 
-        Button createExercise = findViewById(R.id.newExercise);
-        createExercise.setOnClickListener(view ->{
-            if(!isClicked){
-                isClicked = true;
-                controller.presentProperNumbers();
-                createExercise.setEnabled(false);
-            }
-        });
+        createExercise = findViewById(R.id.newExercise);
+
+        startNewExercise();
 
         Button checkInput = findViewById(R.id.checkInput);
         checkInput.setOnClickListener(view -> {
@@ -62,13 +61,21 @@ public class ViewPage extends AppCompatActivity {
 
     }
 
+    public void startNewExercise(){
+        createExercise.setOnClickListener(view ->{
+            if(!this.isClicked){
+                this.isClicked = true;
+                controller.presentProperNumbers();
+                createExercise.setEnabled(false);
+            }
+        });
+    }
+
     /**
      * show a text, if the currently exercise is solved right
      * @throws InterruptedException
      */
-    public void showSuccessToast() throws InterruptedException {
-        Toast.makeText(this, "gut gemacht-)", Toast.LENGTH_SHORT).show();
-        Thread.sleep(2000);
+    public void showSuccessToast() {
         editInputResult.setText("");
         desingPoints();
     }
@@ -76,9 +83,8 @@ public class ViewPage extends AppCompatActivity {
 
     /**
      * show a text, if the currently exercise isn't solved right
-     */
+    */
     public void showFaildToast(){
-        Toast.makeText(this, "Versuch es nochmal!", Toast.LENGTH_SHORT).show();
         editInputResult.setText("");
     }
 
@@ -133,6 +139,7 @@ public class ViewPage extends AppCompatActivity {
         editPoints.setTextColor(textColor);
     }
 
+
     /**
      * give the currently points of the game.
      * @return currently points
@@ -161,5 +168,15 @@ public class ViewPage extends AppCompatActivity {
         editPoints.setText(String.valueOf(currentlyPoints));
     }
 
+    public void startNewExerciseAgain(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent loginIntent = new Intent(ViewPage.this, ViewPage.class);
+                startActivity(loginIntent);
+                finish(); // Aktuelle Aktivität schließen
+            }
+        }, MAX_WAITING_TIME);
+    }
 
 }

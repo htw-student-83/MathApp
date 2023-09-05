@@ -8,12 +8,12 @@ import java.util.Random;
  * This class represents the model of the MVC-Pattern.
  */
 public class Businesslogic implements LogicOfTheGame {
-
     private int product  = 0;
     private int cnt = 0;
-    private int MAX_GAME_POINTS = 20;
-    private int MAX_ROUNDS_OF_GAME = 20;
+    private int MAX_GAME_POINTS = 10;
+    private int MAX_ROUNDS_OF_GAME = 10;
     private int current_round = 0;
+
 
     public int getCurrent_round() {
         return current_round;
@@ -67,8 +67,7 @@ public class Businesslogic implements LogicOfTheGame {
     @Override
     public int getSecondNumber(){
         Random secoundNumber = new Random();
-        return secoundNumber.nextInt(10);
+        return secoundNumber.nextInt(20);
     }
-
 
 }
